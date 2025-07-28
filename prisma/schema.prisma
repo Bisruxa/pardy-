@@ -1,0 +1,71 @@
+generator client {
+  provider = "prisma-client-js"
+  output   = "../app/generated/prisma"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum RSVPStatus {
+  going
+  not_going
+  maybe
+}
+
+enum EventStatus {
+  draft
+  live
+  started
+  ended
+  canceled
+}
+
+model User {
+  id        Int     @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  email     String  @unique
+  password  String
+  events    Event[] @relation("CreatedEvents") // one-to-many
+}
+
+model Event {
+  id           Int         @id @default(autoincrement())
+  createdAt    DateTime    @default(now())
+  name         String
+  startOn      DateTime
+  createdById  Int         // 🔥 Changed from String to Int
+  description  String
+  streetNumber Int?
+  street       String?
+  zip          Int?
+  bldg         String?
+  isPrivate    Boolean     @default(false)
+  status       EventStatus @default(draft)
+
+  createdBy    User        @relation("CreatedEvents", fields: [createdById], references: [id])
+  rsvps        RSVP[]
+}
+
+model Attendee {
+  id        Int     @id @default(autoincrement())
+  createdAt DateTime @default(now())
+  email     String  @unique
+  name      String
+
+  rsvps     RSVP[]
+}
+
+model RSVP {
+  id          Int         @id @default(autoincrement())
+  createdAt   DateTime    @default(now())
+  attendeeId  Int         // 🔥 Changed from String to Int
+  eventId     Int         // 🔥 Changed from String to Int
+  status      RSVPStatus  @default(going)
+
+  attendee    Attendee    @relation(fields: [attendeeId], references: [id])
+  event       Event       @relation(fields: [eventId], references: [id])
+
+  @@unique([attendeeId, eventId])
+}
