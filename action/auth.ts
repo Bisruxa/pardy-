@@ -1,6 +1,6 @@
 'use server'
  import {cookies} from 'next/headers'
- import {signin,signup} from @/utils/authToken
+ import {signin,signup} from '@/utils/authTools'
  import {z} from 'zod'
  import {redirect} from 'next/navigation'
  import {COOKIE_NAME} from "@/utils/constants"
@@ -9,7 +9,7 @@
   email:z.string().email(),
   password:z.string(),
  })
- export const registerUser = async (prevState:any ,formdata:FormData){
+ export const registerUser = async (prevState:any ,formdata:FormData)=>{
   const data = authSchema.parse({
     email:formdata.get('email'),
     password:formdata.get('password'),
@@ -21,6 +21,7 @@
     cookies().set(COOKIE_NAME,token)    
   }
   catch(e){
+    console.error("Signup error:", e);
     return {message:"failed to sign you up"}
 
   }
