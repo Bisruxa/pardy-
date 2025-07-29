@@ -13,9 +13,9 @@ export const getUserFromToken = async (token: {
   name: string;
   value: string;
 }) => {
-  const payload = jwt.verify(token.value, SECRET) as { id: string };
+  const payload = jwt.verify(token.value, SECRET) as { id };
 
-  const user = await prisma.users.findFirst({
+  const user = await prisma.user.findFirst({
     where: { id: payload.id },
     select: {
       id: true,
@@ -34,7 +34,7 @@ export const signin = async ({
   email: string;
   password: string;
 }) => {
-  const match = await prisma.users.findFirst({
+  const match = await prisma.user.findFirst({
     where: { email },
   });
 
@@ -56,7 +56,7 @@ export const signup = async ({
   password: string;
 }) => {
   const hashedPW = await hashPW(password);
-  const user = await prisma.users.create({
+  const user = await prisma.user.create({
     data: { email, password: hashedPW },
     select: {
       id: true,
