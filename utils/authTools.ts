@@ -13,7 +13,7 @@ export const getUserFromToken = async (token: {
   name: string;
   value: string;
 }) => {
-  const payload = jwt.verify(token.value, SECRET) as { id };
+  const payload = jwt.verify(token.value, SECRET) as { id:any };
 
   const user = await prisma.user.findFirst({
     where: { id: payload.id },

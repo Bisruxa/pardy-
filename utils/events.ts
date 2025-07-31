@@ -1,6 +1,5 @@
 import 'server-only'
 import { delay } from './delay'
-import { de } from 'zod/v4/locales'
 import prisma from '@/lib/prisma'
 
 export const getEvents= async(userId:number)=>{
@@ -19,5 +18,5 @@ createdById:userId
     },
    take:5,
   });
-  return data;
+  return data ?? [];
 }

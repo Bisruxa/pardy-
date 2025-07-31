@@ -23,9 +23,10 @@ const SigninForm = () => {
       className="bg-content1 border border-default-100 shadow-lg rounded-md p-3 flex flex-col gap-2 "
     >
       <h3 className="my-1 mx-auto font-bold text-lg">Sign in</h3>
-      <button disabled={pending} className="text-red-700">
-        {state?.message}
-      </button>
+      {state?.message && (
+        <p className="text-red-700 text-center mb-2">{state.message}</p>
+      )}
+
       <input
         placeholder="Email"
         name="email"
