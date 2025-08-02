@@ -6,6 +6,7 @@ import {memoize} from 'nextjs-better-unstable-cache'
 export const getAttendeesCountForDashboard = memoize(async (userId: number) => {
   await delay();
 
+
   const rsvps = await prisma.rSVP.findMany({
     where: {
       event: {
