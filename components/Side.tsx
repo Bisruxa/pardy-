@@ -1,6 +1,7 @@
 'use client'
  import Image from 'next/image'
  import Link from 'next/link'
+import { usePathname } from 'next/navigation'
  
  const links = [
   {route:'/dashboard' , name :'Home'},
@@ -9,7 +10,15 @@
   {route:'/dashboard/activity',name:'Activity'},
   {route:'/dashboard/settings', name:'Settings'},
  ]
+const isActive =(path:string,route:string)=>{
+  if(route === '/dashboard')
+  {return path === '/dashboard'}
+else {
+  return path.includes(route)
+}
+}
 const Side =()=>{
+  const path = usePathname()
   return (
     <div className="w-full h-full px-3 relative">
       <div className="mb-12">
@@ -19,7 +28,8 @@ const Side =()=>{
         {links.map((link) => (
           <div className="w-full " key={link.route}>
             <Link href={link.route}>
-            <div className={`w-full h-full py-2 px-2 rounded-lg`}>{link.name}</div></Link>
+            <div className={`w-full h-full py-2 px-2 rounded-lg ${isActive(path,link.route) ? 'bg-blue-500 text-white font-semibold':'text-white hover:bg-gray-900'}`}
+            >{link.name}</div></Link>
           </div>
         ))}
       </div>
