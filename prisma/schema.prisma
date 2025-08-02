@@ -35,7 +35,7 @@ model Event {
   createdAt    DateTime    @default(now())
   name         String
   startOn      DateTime
-  createdById  Int         // 🔥 Changed from String to Int
+  createdById  Int         
   description  String
   streetNumber Int?
   street       String?

@@ -11,6 +11,7 @@
   "dependencies": {
     "@nextui-org/react": "^2.6.11",
     "@prisma/client": "^6.13.0",
+    "@scaleway/random-name": "^5.1.2",
     "bcrypt": "^6.0.0",
     "jsonwebtoken": "^9.0.2",
     "lucide-react": "^0.532.0",
