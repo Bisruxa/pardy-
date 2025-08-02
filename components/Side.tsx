@@ -4,10 +4,10 @@
  
  const links = [
   {route:'/dashboard' , name :'Home'},
-  {route:'/dashbaord/events', name:'Events'},
-  {route:'/dashbaord/guests',name:'Guests'},
-  {route:'/dashbaord/activity',name:'Activity'},
-  {route:'/dashbard/settings', name:'Settings'},
+  {route:'/dashboard/events', name:'Events'},
+  {route:'/dashboard/guests',name:'Guests'},
+  {route:'/dashboard/activity',name:'Activity'},
+  {route:'/dashboard/settings', name:'Settings'},
  ]
 const Side =()=>{
   return (

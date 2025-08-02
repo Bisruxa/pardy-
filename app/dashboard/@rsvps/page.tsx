@@ -16,7 +16,7 @@ const Rsvps=async()=>{
         <h2 className="text-center text-xl">{`RSVPS`}</h2>
         <div className="rounded-md border border-default-100 my-8">
           {data.map(({event,attendee})=>(
-            <div key={event.id} className="border-b border-default-100 p-2 flex gap-2">
+            <div key={event.name} className="border-b border-default-100 p-2 flex gap-2">
 <span>{attendee.name}</span>
 <span>
   {}

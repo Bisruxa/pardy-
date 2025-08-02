@@ -1,8 +1,9 @@
 import "server-only";
 import { delay } from "./delay";
 import prisma from "@/lib/prisma";
+import { memoize } from "nextjs-better-unstable-cache";
 
-export const getRsvps = async (userId: number) => {
+export const getRsvps = memoize(async (userId: number) => {
   await delay();
   
 
@@ -34,4 +35,7 @@ export const getRsvps = async (userId: number) => {
   });
 
   return rsvps;
-};
+},{
+  persist:true,
+  revalidateTags:['dashboard:rsvps']
+})

@@ -1,8 +1,9 @@
 import "server-only";
 import { delay } from "./delay";
 import prisma from "@/lib/prisma";
+import {memoize} from 'nextjs-better-unstable-cache'
 
-export const getAttendeesCountForDashboard = async (userId: number) => {
+export const getAttendeesCountForDashboard = memoize(async (userId: number) => {
   await delay();
 
   const rsvps = await prisma.rSVP.findMany({
@@ -34,4 +35,8 @@ export const getAttendeesCountForDashboard = async (userId: number) => {
   }
 
   return total;
-};
+},{
+ persist:true,
+ revalidateTags:['dashoard:attendes']
+
+})

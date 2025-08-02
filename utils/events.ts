@@ -1,8 +1,8 @@
 import 'server-only'
 import { delay } from './delay'
 import prisma from '@/lib/prisma'
-
-export const getEvents= async(userId:number)=>{
+import { memoize } from 'nextjs-better-unstable-cache'
+export const getEvents= memoize(async(userId:number)=>{
   await delay()
 
   const data = await prisma.event.findMany({
@@ -19,4 +19,7 @@ createdById:userId
    take:5,
   });
   return data ?? [];
-}
+},{
+  persist:true,
+  revalidateTags:['dashboard:events']
+})
